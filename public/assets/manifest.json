@@ -1,0 +1,40 @@
+{
+  "baseImages": [
+    {
+      "id": "base-01",
+      "name": "Neon Grid",
+      "src": "/assets/base/base-01.png",
+      "defaultCanvas": { "width": 1080, "height": 1080 },
+      "tags": ["reaction", "format"],
+      "credit": "GROOL placeholder"
+    },
+    {
+      "id": "base-02",
+      "name": "Signal Gradient",
+      "src": "/assets/base/base-02.png",
+      "defaultCanvas": { "width": 1080, "height": 1920 },
+      "tags": ["format"],
+      "credit": "GROOL placeholder"
+    }
+  ],
+  "stickers": [
+    {
+      "id": "sticker-star",
+      "name": "Starburst",
+      "src": "/assets/stickers/sticker-star.png"
+    },
+    {
+      "id": "sticker-bubble",
+      "name": "Speech Bubble",
+      "src": "/assets/stickers/sticker-bubble.png"
+    }
+  ],
+  "fonts": [
+    {
+      "id": "memeblack",
+      "name": "Meme Black",
+      "family": "MemeBlack",
+      "src": "/fonts/Arial%20Black.ttf"
+    }
+  ]
+}
