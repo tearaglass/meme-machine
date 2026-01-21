@@ -331,9 +331,17 @@ const loadImage = (src) => {
   });
 };
 
+const generateId = () => {
+  if (globalThis.crypto?.randomUUID) {
+    return globalThis.crypto.randomUUID();
+  }
+  // Fallback for older iOS webviews that lack crypto.randomUUID.
+  return `layer-${Math.random().toString(16).slice(2)}-${Date.now()}`;
+};
+
 const createLayer = (type, data, options = {}) => {
   return {
-    id: crypto.randomUUID(),
+    id: generateId(),
     type,
     position: { x: options.x ?? 60, y: options.y ?? 60 },
     scale: options.scale ?? 1,
