@@ -23,8 +23,8 @@ const statusEl = document.getElementById('status');
 
 const toolButtons = document.querySelectorAll('[data-tool]');
 const aspectButtons = document.querySelectorAll('[data-aspect]');
-const baseImagesEl = document.getElementById('base-images');
-const stickersEl = document.getElementById('stickers');
+const baseImageSelect = document.getElementById('base-image-select');
+const stickerSelect = document.getElementById('sticker-select');
 const layerListEl = document.getElementById('layer-list');
 
 const textInput = document.getElementById('text-input');
@@ -443,7 +443,7 @@ const selectLayerAtPoint = (point) => {
 const createBaseLayer = async (asset) => {
   try {
     const img = await loadImage(asset.src);
-    updateCanvasSize(asset.defaultCanvas.width, asset.defaultCanvas.height);
+    updateCanvasSize(img.width, img.height);
     const baseLayer = createLayer('base', {
       width: img.width,
       height: img.height,
@@ -480,6 +480,7 @@ const createStickerLayer = async (asset) => {
 const createImageLayer = async (src) => {
   try {
     const img = await loadImage(src);
+    updateCanvasSize(img.width, img.height);
     const layer = createLayer('image', {
       width: img.width,
       height: img.height,
@@ -528,26 +529,34 @@ const ensureFontsLoaded = async () => {
 };
 
 const buildAssetButtons = () => {
-  baseImagesEl.innerHTML = '';
-  state.assets.baseImages.forEach((asset) => {
-    const button = document.createElement('button');
-    const img = document.createElement('img');
-    img.alt = asset.name;
-    img.src = asset.src;
-    button.appendChild(img);
-    button.addEventListener('click', () => createBaseLayer(asset));
-    baseImagesEl.appendChild(button);
+  baseImageSelect.innerHTML = '';
+  const placeholder = document.createElement('option');
+  placeholder.value = 'placeholder';
+  placeholder.textContent = 'Select base image';
+  placeholder.disabled = true;
+  placeholder.selected = true;
+  baseImageSelect.appendChild(placeholder);
+
+  state.assets.baseImages.forEach((asset, index) => {
+    const option = document.createElement('option');
+    option.value = String(index);
+    option.textContent = asset.name;
+    baseImageSelect.appendChild(option);
   });
 
-  stickersEl.innerHTML = '';
-  state.assets.stickers.forEach((asset) => {
-    const button = document.createElement('button');
-    const img = document.createElement('img');
-    img.alt = asset.name;
-    img.src = asset.src;
-    button.appendChild(img);
-    button.addEventListener('click', () => createStickerLayer(asset));
-    stickersEl.appendChild(button);
+  stickerSelect.innerHTML = '';
+  const stickerPlaceholder = document.createElement('option');
+  stickerPlaceholder.value = 'placeholder';
+  stickerPlaceholder.textContent = 'Select sticker';
+  stickerPlaceholder.disabled = true;
+  stickerPlaceholder.selected = true;
+  stickerSelect.appendChild(stickerPlaceholder);
+
+  state.assets.stickers.forEach((asset, index) => {
+    const option = document.createElement('option');
+    option.value = String(index);
+    option.textContent = asset.name;
+    stickerSelect.appendChild(option);
   });
 
   fontSelect.innerHTML = '';
@@ -561,7 +570,7 @@ const buildAssetButtons = () => {
 
 const loadAssets = async () => {
   try {
-    const response = await fetch('/assets/manifest.json');
+    const response = await fetch('/assets/manifest.json?v=2025-02-18');
     state.assets = await response.json();
     buildAssetButtons();
     await ensureFontsLoaded();
@@ -574,6 +583,9 @@ const setActiveTool = (tool) => {
   state.activeTool = tool;
   toolButtons.forEach((button) => {
     button.classList.toggle('active', button.dataset.tool === tool);
+  });
+  document.querySelectorAll('[data-tool-panel]').forEach((panel) => {
+    panel.classList.toggle('is-active', panel.dataset.toolPanel === tool);
   });
 };
 
@@ -642,10 +654,10 @@ const canvasHasContent = () => {
 
 const exportMeme = async () => {
   if (!canvasHasContent()) {
-    setStatus('Canvas is empty. Add a layer before export.');
+    setStatus('Canvas is empty. Add a layer before download.');
     return;
   }
-  setStatus('Exporting PNG...');
+  setStatus('Preparing download...');
 
   canvas.toBlob(async (blob) => {
     if (!blob) {
@@ -653,42 +665,22 @@ const exportMeme = async () => {
       return;
     }
 
-    const form = new FormData();
-    form.append('file', blob, 'meme.png');
     const webapp = window.Telegram?.WebApp;
-    const userId = webapp?.initDataUnsafe?.user?.id;
-    const sourceChatId = webapp?.initDataUnsafe?.chat?.id;
-    if (userId) form.append('userId', String(userId));
-    if (sourceChatId) form.append('sourceChatId', String(sourceChatId));
-
-    try {
-      const headers = {};
-      if (state.csrfToken) {
-        headers['X-CSRF-Token'] = state.csrfToken;
-      }
-
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: form,
-        headers
-      });
-      if (!response.ok) {
-        const error = await response.json().catch(() => ({ error: 'Upload failed' }));
-        throw new Error(error.error || 'Upload failed');
-      }
-      const data = await response.json();
-      const payload = JSON.stringify({ uploadId: data.id });
-      if (webapp) {
-        webapp.sendData(payload);
-        webapp.close();
-        setStatus('Sent to Telegram.');
-      } else {
-        setStatus(`Upload complete. ID: ${data.id}`);
-      }
-      setDirty(false);
-    } catch (error) {
-      setStatus('Upload failed. Try again.');
+    if (webapp) {
+      setStatus('Use a screenshot to save on mobile.');
+      return;
     }
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'meme.png';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    setStatus('Download started.');
+    setDirty(false);
   }, 'image/png');
 };
 
@@ -851,6 +843,24 @@ imageUpload.addEventListener('change', async (event) => {
 
 addTextButton.addEventListener('click', createTextLayer);
 exportButton.addEventListener('click', exportMeme);
+
+baseImageSelect.addEventListener('change', (event) => {
+  const index = Number(event.target.value);
+  if (!Number.isFinite(index)) return;
+  const asset = state.assets.baseImages[index];
+  if (!asset) return;
+  createBaseLayer(asset);
+  event.target.value = 'placeholder';
+});
+
+stickerSelect.addEventListener('change', (event) => {
+  const index = Number(event.target.value);
+  if (!Number.isFinite(index)) return;
+  const asset = state.assets.stickers[index];
+  if (!asset) return;
+  createStickerLayer(asset);
+  event.target.value = 'placeholder';
+});
 
 layerX.addEventListener('input', updateLayerFromInputs);
 layerY.addEventListener('input', updateLayerFromInputs);
