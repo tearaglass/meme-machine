@@ -2,31 +2,302 @@
   "baseImages": [
     {
       "id": "base-01",
-      "name": "Neon Grid",
-      "src": "/assets/base/base-01.png",
-      "defaultCanvas": { "width": 1080, "height": 1080 },
-      "tags": ["reaction", "format"],
-      "credit": "GROOL placeholder"
+      "name": "Base Img 1",
+      "src": "/assets/base/01.jpeg",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
     },
     {
       "id": "base-02",
-      "name": "Signal Gradient",
-      "src": "/assets/base/base-02.png",
-      "defaultCanvas": { "width": 1080, "height": 1920 },
-      "tags": ["format"],
-      "credit": "GROOL placeholder"
+      "name": "Base Img 2",
+      "src": "/assets/base/02.png",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-03",
+      "name": "Base Img 3",
+      "src": "/assets/base/03.png",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-04",
+      "name": "Base Img 4",
+      "src": "/assets/base/04.jpg",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-05",
+      "name": "Base Img 5",
+      "src": "/assets/base/05.JPG",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-06",
+      "name": "Base Img 6",
+      "src": "/assets/base/06.png",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-07",
+      "name": "Base Img 7",
+      "src": "/assets/base/07.JPG",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-08",
+      "name": "Base Img 8",
+      "src": "/assets/base/08.JPG",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-09",
+      "name": "Base Img 9",
+      "src": "/assets/base/09.JPG",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-10",
+      "name": "Base Img 10",
+      "src": "/assets/base/10.JPG",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-11",
+      "name": "Base Img 11",
+      "src": "/assets/base/11.JPG",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-12",
+      "name": "Base Img 12",
+      "src": "/assets/base/12.JPG",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-13",
+      "name": "Base Img 13",
+      "src": "/assets/base/13.JPG",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-14",
+      "name": "Base Img 14",
+      "src": "/assets/base/14.JPG",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-15",
+      "name": "Base Img 15",
+      "src": "/assets/base/15.png",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-16",
+      "name": "Base Img 16",
+      "src": "/assets/base/16.png",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
+    },
+    {
+      "id": "base-17",
+      "name": "Base Img 17",
+      "src": "/assets/base/17.png",
+      "defaultCanvas": { "width": 1080, "height": 1080 }
     }
   ],
   "stickers": [
     {
-      "id": "sticker-star",
-      "name": "Starburst",
-      "src": "/assets/stickers/sticker-star.png"
+      "id": "arrow",
+      "name": "Arrow",
+      "src": "/assets/stickers/arrow.png"
     },
     {
-      "id": "sticker-bubble",
-      "name": "Speech Bubble",
-      "src": "/assets/stickers/sticker-bubble.png"
+      "id": "birdapp",
+      "name": "Birdapp",
+      "src": "/assets/stickers/birdapp.png"
+    },
+    {
+      "id": "bow",
+      "name": "Bow",
+      "src": "/assets/stickers/bow.png"
+    },
+    {
+      "id": "bow2",
+      "name": "Bow 2",
+      "src": "/assets/stickers/bow2.png"
+    },
+    {
+      "id": "bow3",
+      "name": "Bow 3",
+      "src": "/assets/stickers/bow3.png"
+    },
+    {
+      "id": "bunny",
+      "name": "Bunny",
+      "src": "/assets/stickers/bunny.png"
+    },
+    {
+      "id": "bunny2",
+      "name": "Bunny 2",
+      "src": "/assets/stickers/bunny2.png"
+    },
+    {
+      "id": "cat",
+      "name": "Cat",
+      "src": "/assets/stickers/cat.png"
+    },
+    {
+      "id": "cat2",
+      "name": "Cat 2",
+      "src": "/assets/stickers/cat2.png"
+    },
+    {
+      "id": "cherub",
+      "name": "Cherub",
+      "src": "/assets/stickers/cherub.png"
+    },
+    {
+      "id": "cherub2",
+      "name": "Cherub 2",
+      "src": "/assets/stickers/cherub2.png"
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud",
+      "src": "/assets/stickers/cloud.png"
+    },
+    {
+      "id": "computer",
+      "name": "Computer",
+      "src": "/assets/stickers/computer.png"
+    },
+    {
+      "id": "dollarsign",
+      "name": "Dollar Sign",
+      "src": "/assets/stickers/dollarsign.png"
+    },
+    {
+      "id": "dress",
+      "name": "Dress",
+      "src": "/assets/stickers/dress.png"
+    },
+    {
+      "id": "face",
+      "name": "Face",
+      "src": "/assets/stickers/face.png"
+    },
+    {
+      "id": "face2",
+      "name": "Face 2",
+      "src": "/assets/stickers/face2.png"
+    },
+    {
+      "id": "flame",
+      "name": "Flame",
+      "src": "/assets/stickers/flame.png"
+    },
+    {
+      "id": "flames",
+      "name": "Flames",
+      "src": "/assets/stickers/flames.png"
+    },
+    {
+      "id": "goo",
+      "name": "Goo",
+      "src": "/assets/stickers/goo.png"
+    },
+    {
+      "id": "grool1",
+      "name": "Grool 1",
+      "src": "/assets/stickers/grool1.png"
+    },
+    {
+      "id": "grool2",
+      "name": "Grool 2",
+      "src": "/assets/stickers/grool2.png"
+    },
+    {
+      "id": "grool3",
+      "name": "Grool 3",
+      "src": "/assets/stickers/grool3.png"
+    },
+    {
+      "id": "guy",
+      "name": "Guy",
+      "src": "/assets/stickers/guy.png"
+    },
+    {
+      "id": "halo",
+      "name": "Halo",
+      "src": "/assets/stickers/halo.png"
+    },
+    {
+      "id": "head",
+      "name": "Head",
+      "src": "/assets/stickers/head.png"
+    },
+    {
+      "id": "heart",
+      "name": "Heart",
+      "src": "/assets/stickers/heart.png"
+    },
+    {
+      "id": "laughingtear",
+      "name": "Laughing Tear",
+      "src": "/assets/stickers/laughingtear.png"
+    },
+    {
+      "id": "lips",
+      "name": "Lips",
+      "src": "/assets/stickers/lips.png"
+    },
+    {
+      "id": "meltyhead",
+      "name": "Melty Head",
+      "src": "/assets/stickers/meltyhead.png"
+    },
+    {
+      "id": "notification",
+      "name": "Notification",
+      "src": "/assets/stickers/notification.png"
+    },
+    {
+      "id": "phone",
+      "name": "Phone",
+      "src": "/assets/stickers/phone.png"
+    },
+    {
+      "id": "phone2",
+      "name": "Phone 2",
+      "src": "/assets/stickers/phone2.png"
+    },
+    {
+      "id": "strawberries",
+      "name": "Strawberries",
+      "src": "/assets/stickers/strawberries.png"
+    },
+    {
+      "id": "strawberries2",
+      "name": "Strawberries 2",
+      "src": "/assets/stickers/strawberries2.png"
+    },
+    {
+      "id": "thumb",
+      "name": "Thumb",
+      "src": "/assets/stickers/thumb.png"
+    },
+    {
+      "id": "verified",
+      "name": "Verified",
+      "src": "/assets/stickers/verified.png"
+    },
+    {
+      "id": "wings",
+      "name": "Wings",
+      "src": "/assets/stickers/wings.png"
+    },
+    {
+      "id": "wings2",
+      "name": "Wings 2",
+      "src": "/assets/stickers/wings2.png"
     }
   ],
   "fonts": [

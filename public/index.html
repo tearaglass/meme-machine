@@ -11,11 +11,9 @@
 <body>
   <header class="top-bar">
     <div>
-      <h1>GROOL Meme Machine</h1>
-      <p>Telegram-native meme editor</p>
+      <h1>$GROOL DESKTOP</h1>
     </div>
     <div class="aspect-controls">
-      <span>Aspect</span>
       <button class="ghost" data-aspect="1:1">1:1</button>
       <button class="ghost" data-aspect="9:16">9:16</button>
       <button class="ghost" data-aspect="16:9">16:9</button>
@@ -29,72 +27,85 @@
         <button data-tool="select" class="tool-button active">Select</button>
         <button data-tool="text" class="tool-button">Text</button>
         <button data-tool="draw" class="tool-button">Draw</button>
+        <button data-tool="stickers" class="tool-button">Stickers</button>
       </div>
 
-      <div class="section">
-        <h3>Base Images</h3>
-        <div id="base-images" class="asset-grid"></div>
-      </div>
-
-      <div class="section">
-        <h3>Upload Image</h3>
-        <input type="file" id="image-upload" accept="image/*" />
-      </div>
-
-      <div class="section">
-        <h3>Text Tool</h3>
-        <label>
-          Text
-          <input type="text" id="text-input" placeholder="Type your meme" />
-        </label>
-        <label>
-          Font
-          <select id="font-select"></select>
-        </label>
-        <div class="inline">
-          <label>
-            Size
-            <input type="number" id="text-size" min="12" max="200" value="64" />
-          </label>
-          <label>
-            Color
-            <input type="color" id="text-color" value="#ffffff" />
+      <div class="tool-section is-active" data-tool-panel="select">
+        <div class="section">
+          <h3>Base Images</h3>
+          <label class="field">
+            <select id="base-image-select"></select>
           </label>
         </div>
-        <div class="inline">
-          <label>
-            Stroke
-            <input type="color" id="text-stroke" value="#000000" />
-          </label>
-          <label>
-            Align
-            <select id="text-align">
-              <option value="left">Left</option>
-              <option value="center" selected>Center</option>
-              <option value="right">Right</option>
-            </select>
-          </label>
-        </div>
-        <button id="add-text" class="primary">Add Text</button>
-      </div>
 
-      <div class="section">
-        <h3>Draw Tool</h3>
-        <div class="inline">
-          <label>
-            Color
-            <input type="color" id="draw-color" value="#ffffff" />
-          </label>
-          <label>
-            Size
-            <input type="number" id="draw-size" min="2" max="48" value="8" />
-          </label>
+        <div class="section">
+          <h3>Upload Image</h3>
+          <input type="file" id="image-upload" accept="image/*" />
         </div>
       </div>
 
-      <div class="section">
-        <h3>Stickers</h3>
-        <div id="stickers" class="asset-grid"></div>
+      <div class="tool-section" data-tool-panel="text">
+        <div class="section">
+          <h3>Text Tool</h3>
+          <label>
+            Text
+            <input type="text" id="text-input" placeholder="Type your meme" />
+          </label>
+          <label>
+            Font
+            <select id="font-select"></select>
+          </label>
+          <div class="inline">
+            <label>
+              Size
+              <input type="number" id="text-size" min="12" max="200" value="64" />
+            </label>
+            <label>
+              Color
+              <input type="color" id="text-color" value="#ffffff" />
+            </label>
+          </div>
+          <div class="inline">
+            <label>
+              Stroke
+              <input type="color" id="text-stroke" value="#000000" />
+            </label>
+            <label>
+              Align
+              <select id="text-align">
+                <option value="left">Left</option>
+                <option value="center" selected>Center</option>
+                <option value="right">Right</option>
+              </select>
+            </label>
+          </div>
+          <button id="add-text" class="primary">Add Text</button>
+        </div>
+      </div>
+
+      <div class="tool-section" data-tool-panel="draw">
+        <div class="section">
+          <h3>Draw Tool</h3>
+          <div class="inline">
+            <label>
+              Color
+              <input type="color" id="draw-color" value="#ffffff" />
+            </label>
+            <label>
+              Size
+              <input type="number" id="draw-size" min="2" max="48" value="8" />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section" data-tool-panel="stickers">
+        <div class="section">
+          <h3>Stickers</h3>
+          <label class="field">
+            <select id="sticker-select"></select>
+          </label>
+        </div>
       </div>
     </section>
 
@@ -104,7 +115,7 @@
       </div>
       <div class="status" id="status"></div>
       <div class="export-bar">
-        <button id="export" class="primary">Export PNG</button>
+        <button id="export" class="primary">Download PNG</button>
       </div>
     </section>
 
