@@ -472,6 +472,7 @@ const createStickerLayer = async (asset) => {
     });
     layer.image = img;
     addLayer(layer);
+    setActiveTool('select');
   } catch (error) {
     setStatus('Failed to load sticker.');
   }
@@ -666,21 +667,41 @@ const exportMeme = async () => {
     }
 
     const webapp = window.Telegram?.WebApp;
-    if (webapp) {
-      setStatus('Use a screenshot to save on mobile.');
-      return;
-    }
+    const form = new FormData();
+    form.append('file', blob, 'meme.png');
+    const userId = webapp?.initDataUnsafe?.user?.id;
+    const sourceChatId = webapp?.initDataUnsafe?.chat?.id;
+    if (userId) form.append('userId', String(userId));
+    if (sourceChatId) form.append('sourceChatId', String(sourceChatId));
 
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'meme.png';
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
-    setStatus('Download started.');
-    setDirty(false);
+    try {
+      const headers = {};
+      if (state.csrfToken) {
+        headers['X-CSRF-Token'] = state.csrfToken;
+      }
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: form,
+        headers
+      });
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({ error: 'Upload failed' }));
+        throw new Error(error.error || 'Upload failed');
+      }
+      const data = await response.json();
+      const payload = JSON.stringify({ uploadId: data.id });
+      if (webapp) {
+        webapp.sendData(payload);
+        webapp.close();
+        setStatus('Sent to Telegram.');
+      } else {
+        setStatus(`Upload complete. ID: ${data.id}`);
+      }
+      setDirty(false);
+    } catch (error) {
+      setStatus('Upload failed. Try again.');
+    }
   }, 'image/png');
 };
 

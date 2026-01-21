@@ -85,16 +85,22 @@
 
       <div class="tool-section" data-tool-panel="draw">
         <div class="section">
-          <h3>Draw Tool</h3>
-          <div class="inline">
-            <label>
-              Color
-              <input type="color" id="draw-color" value="#ffffff" />
-            </label>
-            <label>
-              Size
-              <input type="number" id="draw-size" min="2" max="48" value="8" />
-            </label>
+        <h3>Draw Tool</h3>
+        <div class="inline">
+          <label>
+            Color
+            <select id="draw-color">
+              <option value="#ff7ac8">Pink</option>
+              <option value="#9b6cff">Purple</option>
+              <option value="#ffd84d">Yellow</option>
+              <option value="#ffffff" selected>White</option>
+              <option value="#000000">Black</option>
+            </select>
+          </label>
+          <label>
+            Size
+            <input type="number" id="draw-size" min="2" max="48" value="8" />
+          </label>
           </div>
         </div>
       </div>
