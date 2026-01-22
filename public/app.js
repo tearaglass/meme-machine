@@ -658,51 +658,7 @@ const exportMeme = async () => {
     setStatus('Canvas is empty. Add a layer before download.');
     return;
   }
-  setStatus('Preparing download...');
-
-  canvas.toBlob(async (blob) => {
-    if (!blob) {
-      setStatus('Failed to export PNG.');
-      return;
-    }
-
-    const webapp = window.Telegram?.WebApp;
-    const form = new FormData();
-    form.append('file', blob, 'meme.png');
-    const userId = webapp?.initDataUnsafe?.user?.id;
-    const sourceChatId = webapp?.initDataUnsafe?.chat?.id;
-    if (userId) form.append('userId', String(userId));
-    if (sourceChatId) form.append('sourceChatId', String(sourceChatId));
-
-    try {
-      const headers = {};
-      if (state.csrfToken) {
-        headers['X-CSRF-Token'] = state.csrfToken;
-      }
-
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: form,
-        headers
-      });
-      if (!response.ok) {
-        const error = await response.json().catch(() => ({ error: 'Upload failed' }));
-        throw new Error(error.error || 'Upload failed');
-      }
-      const data = await response.json();
-      const payload = JSON.stringify({ uploadId: data.id });
-      if (webapp) {
-        webapp.sendData(payload);
-        webapp.close();
-        setStatus('Sent to Telegram.');
-      } else {
-        setStatus(`Upload complete. ID: ${data.id}`);
-      }
-      setDirty(false);
-    } catch (error) {
-      setStatus('Upload failed. Try again.');
-    }
-  }, 'image/png');
+  setStatus('To export, screenshot this image.');
 };
 
 window.addEventListener('resize', resizeCanvasDisplay);
@@ -712,6 +668,14 @@ window.addEventListener('beforeunload', (event) => {
     event.returnValue = '';
   }
 });
+
+const preventTouchScroll = (event) => {
+  event.preventDefault();
+};
+
+canvas.addEventListener('touchstart', preventTouchScroll, { passive: false });
+canvas.addEventListener('touchmove', preventTouchScroll, { passive: false });
+canvas.addEventListener('touchend', preventTouchScroll, { passive: false });
 
 // Keyboard shortcuts
 window.addEventListener('keydown', async (event) => {

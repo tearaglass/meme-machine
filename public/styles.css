@@ -32,6 +32,7 @@ body {
     radial-gradient(circle at 85% 0%, rgba(255, 122, 200, 0.18), transparent 60%),
     linear-gradient(135deg, var(--bg), var(--bg-2));
   color: var(--text);
+  overscroll-behavior: none;
 }
 
 body::before,
@@ -299,6 +300,7 @@ select option {
   padding: 20px;
   display: flex;
   justify-content: center;
+  touch-action: none;
 }
 
 canvas {
@@ -307,6 +309,7 @@ canvas {
   background: transparent;
   border-radius: 18px;
   border: 1px dashed rgba(255, 122, 200, 0.35);
+  touch-action: none;
 }
 
 .status {

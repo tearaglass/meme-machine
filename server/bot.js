@@ -34,6 +34,22 @@ const sendPhotoWithRetry = async (ctx, chatId, photo, options, attempt = 1) => {
   }
 };
 
+const postToPublicChannel = async (ctx, channelId, upload) => {
+  if (!channelId) {
+    return;
+  }
+  try {
+    await sendPhotoWithRetry(
+      ctx,
+      channelId,
+      { source: upload.buffer, filename: 'meme.png' },
+      { caption: 'New meme.' }
+    );
+  } catch (error) {
+    console.error('[ERROR] Failed to post to public channel:', error.message);
+  }
+};
+
 export const createBot = ({ config, store }) => {
   const bot = new Telegraf(config.botToken);
 
@@ -126,6 +142,8 @@ export const createBot = ({ config, store }) => {
       await ctx.reply('Upload expired or missing. Please export again.');
       return;
     }
+
+    await postToPublicChannel(ctx, config.publicChannel, upload);
 
     session.pendingDestinations = {
       source: 'upload',

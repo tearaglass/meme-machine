@@ -105,6 +105,18 @@ app.post('/api/upload', validateCSRFToken, upload.single('file'), (req, res) => 
   res.json({ id: uploadId });
 });
 
+app.get('/api/download/:id', (req, res) => {
+  const upload = store.getUpload(req.params.id);
+  if (!upload) {
+    res.status(404).json({ error: 'Upload expired or missing.' });
+    return;
+  }
+
+  res.setHeader('Content-Type', upload.mimeType);
+  res.setHeader('Content-Disposition', 'attachment; filename="meme.png"');
+  res.send(upload.buffer);
+});
+
 app.use((err, req, res, next) => {
   if (err?.code === 'LIMIT_FILE_SIZE') {
     console.error('[ERROR] File size limit exceeded:', { url: req.url, size: req.headers['content-length'] });

@@ -18,10 +18,12 @@ const requireEnv = (key) => {
 
 const port = parseNumber(process.env.PORT, 3000);
 const webappUrl = process.env.WEBAPP_URL || `http://localhost:${port}/app`;
+const publicChannel = process.env.PUBLIC_CHANNEL || '';
 
 export const config = {
   port,
   botToken: requireEnv('BOT_TOKEN'),
   webappUrl,
+  publicChannel,
   uploadTtlMs: parseNumber(process.env.UPLOAD_TTL_MS, 60 * 60 * 1000)
 };
